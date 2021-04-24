@@ -41,12 +41,12 @@ class Stopwatch implements ActionListener {
         timeLabel.setHorizontalAlignment(JTextField.CENTER);
 
         startButton.setBounds(100, 200, 100, 50);
-        startButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+        startButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
         startButton.setFocusable(false);
         startButton.addActionListener(this);
 
         resetButton.setBounds(200, 200, 100, 50);
-        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
@@ -68,7 +68,7 @@ class Stopwatch implements ActionListener {
                 start();
             } else {
                 started = false;
-                startButton.setText("START");
+                startButton.setText("RESUME");
                 stop();
             }
         }
