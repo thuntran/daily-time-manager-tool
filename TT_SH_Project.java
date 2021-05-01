@@ -8,7 +8,6 @@ class TT_SH_Project {
         TodoLabel TodoLabel = new TodoLabel();
 
         ArrayList<Todo> toDoList = new ArrayList<>();
-        
         char op;
         do {
             System.out.print("\nMENU\n1. Enter a task\n2. View added tasks\n3. Total time\n0. Quit\nChoose an option (0 - 3): ");
