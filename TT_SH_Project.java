@@ -6,32 +6,48 @@ class TT_SH_Project {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         ImageIcon image = new ImageIcon("stem.png");
-
-        JLabel label = new JLabel();
-        label.setText("hello"); //set text
-        label.setIcon(image); // set pic icons
-        label.setHorizontalTextPosition(JLabel.CENTER); //set text Left, center, right of imageicon
-        label.setVerticalTextPosition(JLabel.TOP); //set text top, center, bottom of imageicon
-        label.setForeground(new Color(0,0,0)); //set font color of text
-        label.setFont(new Font("font", Font.PLAIN, 20)); //set font
-        label.setIconTextGap(-25); //set gap of text to image
-        label.setBackground(Color.black);//set bg color
-        label.setOpaque(true);//display bg color
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.CENTER);
-
+        JPanel panel = new JPanel();
         JFrame frame = new JFrame();
+        JLabel label = new JLabel("Enter task here");
+
         frame.setTitle("To Do List"); //title of frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit
         frame.setResizable(true); 
         frame.setSize(420,420);//frame size x,y
+        frame.getContentPane().setBackground(Color.DARK_GRAY);//change backgroud color
+        frame.add(panel);
+
+        panel.setLayout(null);
+
+        label.setBounds(10,20,150,25);
+        panel.add(label);
+
+        JTextField userText = new JTextField(20);
+        userText.setBounds(150,20,165,25);
+        panel.add(userText);
+
+        JButton button = new JButton("Confirm");//weird
+        button.setBounds(400,20,401,21);
+        panel.add(button);
+
         frame.setVisible(true);//make frame visible
+        
+        //label.setText("hello"); //set text
+        //label.setIcon(image); // set pic icons
+        // label.setHorizontalTextPosition(JLabel.CENTER); //set text Left, center, right of imageicon
+        // label.setVerticalTextPosition(JLabel.TOP); //set text top, center, bottom of imageicon
+        // label.setForeground(new Color(0,0,0)); //set font color of text
+        // label.setFont(new Font("font", Font.PLAIN, 20)); //set font
+        // label.setIconTextGap(-25); //set gap of text to image
+        // //label.setBackground(Color.black);//set bg color
+        // label.setOpaque(true);//display bg color
+        // label.setVerticalAlignment(JLabel.CENTER);
+        // label.setHorizontalAlignment(JLabel.CENTER);
 
         //ImageIcon icon = new ImageIcon("logo.png");//create an Imageicon
         //frame.setIconImage(icon.getImage()); //change icon of frame
-        frame.getContentPane().setBackground(new Color(255,255,255));//change backgroud color
-
-        frame.add(label);
+        
+        
 
         ArrayList<Todo> toDoList = new ArrayList<>();
         char op;
