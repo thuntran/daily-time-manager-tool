@@ -3,6 +3,9 @@ import java.util.*;
 class TT_SH_Project {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
+
+        TodoFrame TodoGUI = new TodoFrame();
+
         ArrayList<Todo> toDoList = new ArrayList<>();
         
         char op;
