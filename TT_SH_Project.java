@@ -5,6 +5,7 @@ class TT_SH_Project {
     public static void main(String[] args) {
 
         TodoFrame TodoGUI = new TodoFrame();
+        TodoLabel TodoLabel = new TodoLabel();
 
         ArrayList<Todo> toDoList = new ArrayList<>();
         
