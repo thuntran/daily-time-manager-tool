@@ -1,11 +1,37 @@
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
 class TT_SH_Project {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
+        ImageIcon image = new ImageIcon("stem.png");
 
-        TodoFrame TodoGUI = new TodoFrame();
-        TodoLabel TodoLabel = new TodoLabel();
+        JLabel label = new JLabel();
+        label.setText("hello"); //set text
+        label.setIcon(image); // set pic icons
+        label.setHorizontalTextPosition(JLabel.CENTER); //set text Left, center, right of imageicon
+        label.setVerticalTextPosition(JLabel.TOP); //set text top, center, bottom of imageicon
+        label.setForeground(new Color(0,0,0)); //set font color of text
+        label.setFont(new Font("font", Font.PLAIN, 20)); //set font
+        label.setIconTextGap(-25); //set gap of text to image
+        label.setBackground(Color.black);//set bg color
+        label.setOpaque(true);//display bg color
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.CENTER);
+
+        JFrame frame = new JFrame();
+        frame.setTitle("To Do List"); //title of frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit
+        frame.setResizable(true); 
+        frame.setSize(420,420);//frame size x,y
+        frame.setVisible(true);//make frame visible
+
+        //ImageIcon icon = new ImageIcon("logo.png");//create an Imageicon
+        //frame.setIconImage(icon.getImage()); //change icon of frame
+        frame.getContentPane().setBackground(new Color(255,255,255));//change backgroud color
+
+        frame.add(label);
 
         ArrayList<Todo> toDoList = new ArrayList<>();
         char op;
