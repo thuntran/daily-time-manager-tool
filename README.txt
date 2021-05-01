@@ -18,6 +18,10 @@
     are most comfortable working with in terms of familiarity. Also, we frequently made use of traversing through the data structure to write our different functions, and since each element in
     an ArrayList has an index, it will be more convenient for us to make use of indices to write our desired code.
     
+    In the ArrayList, we stored Todo object that has four attributes: task, hours, minutes, seconds and print them out using toString method. 
+    When the user first enters the task, the hours, minutes, and seconds won't show on the screen (since they are set by default to be zero). 
+    When the user runs the timer and stops it, the time will be recorded, and the time related attributes will be updated accordingly. The updated times will be returned on the console using the print method.
+    
     
 
 ### Project files: 
