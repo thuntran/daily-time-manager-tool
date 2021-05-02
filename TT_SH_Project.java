@@ -1,36 +1,52 @@
 import java.util.*;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 class TT_SH_Project {
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
-        ImageIcon image = new ImageIcon("stem.png");
-        JPanel panel = new JPanel();
+        ArrayList<Todo> toDoList = new ArrayList<>();
+        // Stopwatch stopwatch = new Stopwatch();
+
         JFrame frame = new JFrame();
-        JLabel label = new JLabel("Enter task here");
-
-        frame.setTitle("To Do List"); //title of frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit
+        frame.setTitle("To-Do List"); // title of frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit
         frame.setResizable(true); 
-        frame.setSize(420,420);//frame size x,y
-        frame.getContentPane().setBackground(Color.DARK_GRAY);//change backgroud color
+        frame.setSize(600,500); // frame size x,y
+        frame.getContentPane().setBackground(Color.DARK_GRAY); // change background color
+        JPanel panel = new JPanel();
         frame.add(panel);
-
         panel.setLayout(null);
 
-        label.setBounds(10,20,150,25);
-        panel.add(label);
+        JLabel taskLabel = new JLabel("Enter task here");
+        taskLabel.setBounds(10,20,150,25);
+        panel.add(taskLabel);
 
-        JTextField userText = new JTextField(20);
-        userText.setBounds(150,20,165,25);
-        panel.add(userText);
+        JTextField taskText = new JTextField(20);
+        taskText.setBounds(120,20,250,25);
+        panel.add(taskText);
 
-        JButton button = new JButton("Confirm");//weird
-        button.setBounds(400,20,401,21);
-        panel.add(button);
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.setBounds(400,20,100,25);
+        panel.add(confirmButton);
 
-        frame.setVisible(true);//make frame visible
+        JLabel taskListLabel = new JLabel("Tasks:");
+        taskListLabel.setBounds(10,40,150,45);
+        panel.add(taskListLabel);
+
+        // JLabel toDoLabel = new JLabel("To-do:");
+        // toDoLabel.setBounds(10,40,150,45);
+        // panel.add(toDoLabel);
+
+        // JLabel completedLabel = new JLabel("Completed:");
+        // completedLabel.setBounds(10,150,150,155);
+        // panel.add(completedLabel);
+
+        frame.setVisible(true); // make frame visible
+        
+        // ImageIcon image = new ImageIcon("stem.png");
+        
         
         //label.setText("hello"); //set text
         //label.setIcon(image); // set pic icons
@@ -46,10 +62,6 @@ class TT_SH_Project {
 
         //ImageIcon icon = new ImageIcon("logo.png");//create an Imageicon
         //frame.setIconImage(icon.getImage()); //change icon of frame
-        
-        
-
-        ArrayList<Todo> toDoList = new ArrayList<>();
         char op;
         do {
             System.out.print("\nMENU\n1. Enter a task\n2. View added tasks\n3. Total time\n0. Quit\nChoose an option (0 - 3): ");
@@ -74,6 +86,8 @@ class TT_SH_Project {
         // System.out.println(toDoList);
         // Stopwatch stopwatch = new Stopwatch();
     } // main
+    
+    
 
     static void enterTask(ArrayList<Todo> toDoList) {
         System.out.print("Enter a task: ");
