@@ -44,7 +44,10 @@ class Todo {
     }
 
     public String toString() {
-        return task + " - " + hours + ":" + minutes + ":" + seconds;
+        String seconds_string = String.format("%02d", seconds);
+        String minutes_string = String.format("%02d", minutes);
+        String hours_string = String.format("%02d", hours);
+        return task + " - " + hours_string + ":" + minutes_string + ":" + seconds_string;
     }
 
     public String printTask() { // print the task only
