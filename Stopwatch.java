@@ -1,8 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.Timer;
 
-class Stopwatch implements ActionListener {
+import java.util.*;
+import java.io.*; //eventually needed for file
+
+class Stopwatch extends TT_SH_Project implements ActionListener {
+    
     JFrame frame = new JFrame();
     JButton startButton = new JButton("START");
     JButton resetButton = new JButton("RESET");
@@ -27,7 +32,6 @@ class Stopwatch implements ActionListener {
             minutes_string = String.format("%02d", minutes);
             hours_string = String.format("%02d", hours);
             timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
-
         }
     });
     
@@ -90,7 +94,11 @@ class Stopwatch implements ActionListener {
             started = false;
             startButton.setText("START");
             stop();
+            int recordtime = seconds + minutes*60 + hours*3600;
+            System.out.println("Time taken: " + hours + ":" + minutes + ":" + seconds);
         }
+        
+        
     } 
 
     public void start() {
