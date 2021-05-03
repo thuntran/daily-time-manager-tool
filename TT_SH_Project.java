@@ -3,7 +3,12 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class TT_SH_Project {
+class TT_SH_Project implements ActionListener {
+
+    private static JLabel taskLabel;
+    private static JTextField taskText;
+    private static JLabel taskListLabel;
+    private static JButton confirmButton;
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
         ArrayList<Todo> toDoList = new ArrayList<>();
@@ -19,19 +24,20 @@ class TT_SH_Project {
         frame.add(panel);
         panel.setLayout(null);
 
-        JLabel taskLabel = new JLabel("Enter task here");
+        taskLabel = new JLabel("Enter task here");
         taskLabel.setBounds(10,20,150,25);
         panel.add(taskLabel);
 
-        JTextField taskText = new JTextField(20);
+        taskText = new JTextField(20);
         taskText.setBounds(120,20,250,25);
         panel.add(taskText);
 
-        JButton confirmButton = new JButton("Confirm");
+        confirmButton = new JButton("Confirm");
         confirmButton.setBounds(400,20,100,25);
+        confirmButton.addActionListener(new TT_SH_Project());
         panel.add(confirmButton);
 
-        JLabel taskListLabel = new JLabel("Tasks:");
+        taskListLabel = new JLabel("Tasks:");
         taskListLabel.setBounds(10,40,150,45);
         panel.add(taskListLabel);
 
@@ -120,6 +126,22 @@ class TT_SH_Project {
         System.out.println("Total time: " + totalHours + ":" + totalMinutes + ":" + totalSeconds);
         // System.out.println("Total time: " + total); // test
     } // totalTime
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //ArrayList<Todo> toDoList = new ArrayList<>();
+        System.out.println("Button clicked"); // TEST
+        // String usertask = taskText.getText();
+        // Todo newTask = new Todo(usertask, 0, 0, 0);
+        // toDoList.add(newTask);
+        // System.out.println(newTask);
+        // if (!(toDoList.contains(newTask))){
+        //     JLabel task = new JLabel(usertask);
+        //     panel.add(task);
+        // }
+    }
 } // class
 
 
