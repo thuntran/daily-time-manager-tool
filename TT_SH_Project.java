@@ -1,6 +1,7 @@
 import java.util.*;
 
-class DraftProject {
+
+class TT_SH_Project {
     static ArrayList<Todo> toDoList = new ArrayList<>();
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
