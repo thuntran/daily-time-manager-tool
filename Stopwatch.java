@@ -6,8 +6,9 @@ class Stopwatch implements ActionListener {
     JFrame frame = new JFrame();
     JButton startButton = new JButton("START");
     JButton resetButton = new JButton("RESET");
+    JButton doneButton = new JButton("DONE");
     JLabel timeLabel = new JLabel();
-    int elapsedTime = 0;
+    int elapsedTime = 0; 
     int seconds = 0;
     int minutes = 0;
     int hours = 0;
@@ -34,26 +35,32 @@ class Stopwatch implements ActionListener {
 
     Stopwatch() {
         timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
-        timeLabel.setBounds(100, 100, 200, 100);
+        timeLabel.setBounds(50, 100, 300, 100);
         timeLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
         timeLabel.setBorder(BorderFactory.createBevelBorder(1));
         timeLabel.setOpaque(true);
         timeLabel.setHorizontalAlignment(JTextField.CENTER);
 
-        startButton.setBounds(100, 200, 100, 50);
+        startButton.setBounds(50, 200, 100, 50);
         startButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
         startButton.setFocusable(false);
         startButton.addActionListener(this);
 
-        resetButton.setBounds(200, 200, 100, 50);
+        resetButton.setBounds(150, 200, 100, 50);
         resetButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
+        doneButton.setBounds(250, 200, 100, 50);
+        doneButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
+        doneButton.setFocusable(false);
+        doneButton.addActionListener(this);
+
         frame.add(startButton);  
         frame.add(resetButton);
+        frame.add(doneButton);
         frame.add(timeLabel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(420, 420);
         frame.setLayout(null);
         frame.setVisible(true);
@@ -64,7 +71,7 @@ class Stopwatch implements ActionListener {
         if (e.getSource() == startButton) {
             if (started == false) {
                 started = true;
-                startButton.setText("STOP");
+                startButton.setText("PAUSE");
                 start();
             } else {
                 started = false;
@@ -78,17 +85,23 @@ class Stopwatch implements ActionListener {
             startButton.setText("START");
             reset();
         }
+
+        if (e.getSource() == doneButton) {
+            started = false;
+            startButton.setText("START");
+            stop();
+        }
     } 
 
-    void start() {
+    public void start() {
         timer.start();
     } 
 
-    void stop() {
+    public void stop() {
         timer.stop();
     }
 
-    void reset() {
+    public void reset() {
         timer.stop();
         elapsedTime = 0;
         seconds = 0;
@@ -100,6 +113,8 @@ class Stopwatch implements ActionListener {
         hours_string = String.format("%02d", hours);
         timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
     }
+
+    
     
 }
 

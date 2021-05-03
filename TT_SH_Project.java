@@ -1,113 +1,54 @@
 import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 
-class TT_SH_Project implements ActionListener {
 
-    private static JLabel taskLabel;
-    private static JTextField taskText;
-    private static JLabel taskListLabel;
-    private static JButton confirmButton;
+class TT_SH_Project {
+    static ArrayList<Todo> toDoList = new ArrayList<>();
     static Scanner scan = new Scanner(System.in);
     public static void main(String[] args) {
-        ArrayList<Todo> toDoList = new ArrayList<>();
-        // Stopwatch stopwatch = new Stopwatch();
-
-        JFrame frame = new JFrame();
-        frame.setTitle("To-Do List"); // title of frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // exit
-        frame.setResizable(true); 
-        frame.setSize(600,500); // frame size x,y
-        frame.getContentPane().setBackground(Color.DARK_GRAY); // change background color
-        JPanel panel = new JPanel();
-        frame.add(panel);
-        panel.setLayout(null);
-
-        taskLabel = new JLabel("Enter task here");
-        taskLabel.setBounds(10,20,150,25);
-        panel.add(taskLabel);
-
-        taskText = new JTextField(20);
-        taskText.setBounds(120,20,250,25);
-        panel.add(taskText);
-
-        confirmButton = new JButton("Confirm");
-        confirmButton.setBounds(400,20,100,25);
-        confirmButton.addActionListener(new TT_SH_Project());
-        panel.add(confirmButton);
-
-        taskListLabel = new JLabel("Tasks:");
-        taskListLabel.setBounds(10,40,150,45);
-        panel.add(taskListLabel);
-
-        // JLabel toDoLabel = new JLabel("To-do:");
-        // toDoLabel.setBounds(10,40,150,45);
-        // panel.add(toDoLabel);
-
-        // JLabel completedLabel = new JLabel("Completed:");
-        // completedLabel.setBounds(10,150,150,155);
-        // panel.add(completedLabel);
-
-        frame.setVisible(true); // make frame visible
-        
-        // ImageIcon image = new ImageIcon("stem.png");
-        
-        
-        //label.setText("hello"); //set text
-        //label.setIcon(image); // set pic icons
-        // label.setHorizontalTextPosition(JLabel.CENTER); //set text Left, center, right of imageicon
-        // label.setVerticalTextPosition(JLabel.TOP); //set text top, center, bottom of imageicon
-        // label.setForeground(new Color(0,0,0)); //set font color of text
-        // label.setFont(new Font("font", Font.PLAIN, 20)); //set font
-        // label.setIconTextGap(-25); //set gap of text to image
-        // //label.setBackground(Color.black);//set bg color
-        // label.setOpaque(true);//display bg color
-        // label.setVerticalAlignment(JLabel.CENTER);
-        // label.setHorizontalAlignment(JLabel.CENTER);
-
-        //ImageIcon icon = new ImageIcon("logo.png");//create an Imageicon
-        //frame.setIconImage(icon.getImage()); //change icon of frame
         char op;
         do {
-            System.out.print("\nMENU\n1. Enter a task\n2. View added tasks\n3. Total time\n0. Quit\nChoose an option (0 - 3): ");
+            System.out.print("\nMENU\n1. Task manager\n2. Timer\n3. Record a completed task\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
             op = scan.next().charAt(0);
             switch (op) {
                 case '1':
-                    enterTask(toDoList);
+                    GUI userGUI = new GUI();
                     break;
                 case '2':
-                    print(toDoList);
+                    Stopwatch stopwatch = new Stopwatch();
                     break;
                 case '3':
+                    enterTask(toDoList);
+                    break;
+                case '4':
+                    print(toDoList);
+                    break;
+                case '5':
                     totalTime(toDoList);
                     break;
                 case '0':
-                    System.out.println("Goodbye!");
+                    System.out.println("Goodbye!\n(Please close all your windows to completely end this session)");
                     break;
                 default: System.out.println("Invalid input, please try again.");
             }
         } while (op != '0');
-        // toDoList.add(new Todo("Doing CSC homework", 2, 30, 34));
-        // System.out.println(toDoList);
-        // Stopwatch stopwatch = new Stopwatch();
     } // main
-    
-    
 
     static void enterTask(ArrayList<Todo> toDoList) {
         System.out.print("Enter a task: ");
         scan.nextLine();
         String task = scan.nextLine();
-        toDoList.add(new Todo(task, 0, 0, 0));
-        // toDoList.add(new Todo("Doing CSC homework", 2, 30, 34)); // test
-        // toDoList.add(new Todo("Doing MTH homework", 4, 43, 21)); // test
-        // toDoList.add(new Todo("Doing FRN homework", 5, 23, 22)); // test
+        System.out.print("Enter time taken:\n- Hours: ");
+        int hh = scan.nextInt();
+        System.out.print("- Minutes: ");
+        int mm = scan.nextInt();
+        System.out.print("- Seconds: ");
+        int ss = scan.nextInt();
+        toDoList.add(new Todo(task, hh, mm, ss));
     } // enterTask
 
     static void print(ArrayList<Todo> toDoList) {
         for (int i = 0; i < toDoList.size(); i++) {
-            System.out.println((i+1) + ". " + toDoList.get(i).printTask());
+            System.out.println((i+1) + ". " + toDoList.get(i));
         }
     } // print
 
@@ -123,25 +64,12 @@ class TT_SH_Project implements ActionListener {
         int totalMinutes = residue1 / 60;
         int residue2 = residue1 % 60;
         int totalSeconds = residue2;
-        System.out.println("Total time: " + totalHours + ":" + totalMinutes + ":" + totalSeconds);
+        String secondsString = String.format("%02d", totalSeconds);
+        String minutesString = String.format("%02d", totalMinutes);
+        String hoursString = String.format("%02d", totalHours);
+        System.out.println("Total time: " + hoursString + ":" + minutesString + ":" + secondsString);
         // System.out.println("Total time: " + total); // test
     } // totalTime
-
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //ArrayList<Todo> toDoList = new ArrayList<>();
-        System.out.println("Button clicked"); // TEST
-        // String usertask = taskText.getText();
-        // Todo newTask = new Todo(usertask, 0, 0, 0);
-        // toDoList.add(newTask);
-        // System.out.println(newTask);
-        // if (!(toDoList.contains(newTask))){
-        //     JLabel task = new JLabel(usertask);
-        //     panel.add(task);
-        // }
-    }
 } // class
 
 
