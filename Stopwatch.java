@@ -94,8 +94,11 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
             started = false;
             startButton.setText("START");
             stop();
-            int recordtime = seconds + minutes*60 + hours*3600;
-            System.out.println("Time taken: " + hours + ":" + minutes + ":" + seconds);
+            int recordtime = seconds + minutes * 60 + hours * 3600;
+            seconds_string = String.format("%02d", seconds);
+            minutes_string = String.format("%02d", minutes);
+            hours_string = String.format("%02d", hours);
+            System.out.println("Time taken: " + hours_string + ":" + minutes_string + ":" + seconds_string);
         }
         
         
