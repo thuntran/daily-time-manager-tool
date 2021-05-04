@@ -7,20 +7,20 @@ class TT_SH_Project {
     public static void main(String[] args) {
         char op;
         do {
-            System.out.print("\nMENU\n1. Task manager\n2. Timer\n3. Record a completed task\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
+            System.out.print("\nMENU\n1. Task manager\n2. Add a new task\n3. Choose an uncompleted task to time\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
             op = scan.next().charAt(0);
             switch (op) {
                 case '1':
                     GUI userGUI = new GUI();
                     break;
                 case '2':
-                    Stopwatch stopwatch = new Stopwatch();
-                    break;
-                case '3':
                     enterTask(toDoList);
                     break;
+                case '3':
+                    timeUncompleted(toDoList);
+                    break;
                 case '4':
-                    print(toDoList);
+                    printCompleted(toDoList);
                     break;
                 case '5':
                     totalTime(toDoList);
@@ -37,16 +37,10 @@ class TT_SH_Project {
         System.out.print("Enter a task: ");
         scan.nextLine();
         String task = scan.nextLine();
-        System.out.print("Enter time taken:\n- Hours: ");
-        int hh = scan.nextInt();
-        System.out.print("- Minutes: ");
-        int mm = scan.nextInt();
-        System.out.print("- Seconds: ");
-        int ss = scan.nextInt();
-        toDoList.add(new Todo(task, hh, mm, ss));
+        toDoList.add(new Todo(task, 0, 0, 0));
     } // enterTask
 
-    static void print(ArrayList<Todo> toDoList) {
+    static void timeUncompleted(ArrayList<Todo> toDoList) {
         for (int i = 0; i < toDoList.size(); i++) {
             System.out.println((i+1) + ". " + toDoList.get(i));
         }
@@ -55,12 +49,21 @@ class TT_SH_Project {
         if (i>0 && i <= toDoList.size()){
             Stopwatch stopwatch = new Stopwatch();
             scan.nextLine();
+            System.out.print("Press enter to continue after done timing.");
             scan.nextLine();
             if (stopwatch.hours != 0 || stopwatch.minutes != 0 || stopwatch.seconds != 0)
                 toDoList.set(i-1, new Todo(toDoList.get(i-1).getTask(), stopwatch.hours, stopwatch.minutes, stopwatch.seconds));
-                System.out.println("task time modified: " + toDoList.get(i-1));
+                System.out.println("Task time modified: " + toDoList.get(i-1));
+
         }
-    } // print
+    } // timeUncompleted
+
+    static void printCompleted(ArrayList<Todo> toDoList) {//if checkbox checked, then add to the completed list
+        for (int i = 0; i < toDoList.size(); i++) {
+            System.out.println((i+1) + ". " + toDoList.get(i));
+        }
+    } // printCompleted
+
 
     static void totalTime(ArrayList<Todo> toDoList) {
         int total = 0; // in seconds
