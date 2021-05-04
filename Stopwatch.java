@@ -13,7 +13,7 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
     JButton resetButton = new JButton("RESET");
     JButton doneButton = new JButton("DONE");
     JLabel timeLabel = new JLabel();
-    int elapsedTime = 0; // in milliseconds
+    int elapsedTime = 0; 
     int seconds = 0;
     int minutes = 0;
     int hours = 0;
@@ -94,11 +94,11 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
             started = false;
             startButton.setText("START");
             stop();
-            int recordedTime = elapsedTime / 1000;
+            //int recordtime = seconds + minutes * 60 + hours * 3600;
             seconds_string = String.format("%02d", seconds);
             minutes_string = String.format("%02d", minutes);
             hours_string = String.format("%02d", hours);
-            System.out.println("Time taken: " + hours_string + ":" + minutes_string + ":" + seconds_string);
+            //System.out.println("Time taken: " + hours_string + ":" + minutes_string + ":" + seconds_string);
         }
         
         
@@ -128,5 +128,3 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
     
     
 }
-
-//Stopwatch - https://www.youtube.com/watch?v=0cATENiMsBE
