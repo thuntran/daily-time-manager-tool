@@ -28,7 +28,7 @@ class GUI implements ActionListener {
         frame.getContentPane().setBackground(Color.DARK_GRAY); // change background color
         panel = new JPanel();
         frame.add(panel);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); //needed layout - try to make it look nice
 
         taskLabel = new JLabel("Enter task here");
         taskLabel.setBounds(10,20,150,25);
@@ -47,30 +47,11 @@ class GUI implements ActionListener {
         taskLabel.setBounds(10,40,150,45);
         panel.add(taskLabel);
 
-        task1Label = new JLabel("");
-        task1Label.setBounds(30,70,150,75);
-        task1Label.setFont(new Font("Consolas", Font.PLAIN,15));
-        panel.add(task1Label);
-
-        task2Label = new JLabel("");
-        task2Label.setBounds(30,90,150,95);
-        task2Label.setFont(new Font("Consolas", Font.PLAIN,15));
-        panel.add(task2Label);
-
-        task3Label = new JLabel("");
-        task3Label.setBounds(30,110,150,115);
-        task3Label.setFont(new Font("Consolas", Font.PLAIN,15));
-        panel.add(task3Label);
-
-        task4Label = new JLabel("");
-        task4Label.setBounds(30,130,150,135);
-        task4Label.setFont(new Font("Consolas", Font.PLAIN,15));
-        panel.add(task4Label);
-
-        task5Label = new JLabel("");
-        task5Label.setBounds(30,150,150,155);
-        task5Label.setFont(new Font("Consolas", Font.PLAIN,15));
-        panel.add(task5Label);
+        checkBox1 = new JCheckBox();
+        checkBox2 = new JCheckBox();
+        checkBox3 = new JCheckBox();
+        checkBox4 = new JCheckBox();
+        checkBox5 = new JCheckBox();
 
         frame.setVisible(true); // make frame visible
     }
@@ -78,45 +59,40 @@ class GUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String t = taskText.getText(); // get text from the text box
-        if (task1Label.getText().isEmpty()) {
-            checkBox1 = new JCheckBox(t);
+        if (checkBox1.getText().isEmpty()) {
+            checkBox1.setText(t);
             checkBox1.setBounds(5,68,20,73);
             checkBox1.setFont(new Font("Consolas", Font.PLAIN,15));
             panel.add(checkBox1);
             frame.setSize(500, 200);
-            // task1Label.setText(t);
         }
-        else if (task2Label.getText().isEmpty()) {
-            checkBox2 = new JCheckBox(t);
+        else if (checkBox2.getText().isEmpty()) {
+            checkBox2.setText(t);
             checkBox2.setBounds(5,88,20,93);
             checkBox2.setFont(new Font("Consolas", Font.PLAIN,15));
             panel.add(checkBox2);
-            frame.setSize(500, 500);
-            // task2Label.setText(t);
+            frame.setSize(500, 300);
         }
-        else if (task3Label.getText().isEmpty()) {
-            checkBox3 = new JCheckBox(t);
+        else if (checkBox3.getText().isEmpty()) {
+            checkBox3.setText(t);
             checkBox3.setBounds(5,108,20,113);
             checkBox3.setFont(new Font("Consolas", Font.PLAIN,15));
             panel.add(checkBox3);
-            frame.setSize(500, 800);
-            // task3Label.setText(t);
+            frame.setSize(500, 400);
         }
-        else if (task4Label.getText().isEmpty()) {
-            checkBox4 = new JCheckBox(t);
+        else if (checkBox4.getText().isEmpty()) {
+            checkBox4.setText(t);
             checkBox4.setBounds(5,128,20,133);
             checkBox4.setFont(new Font("Consolas", Font.PLAIN,15));
             panel.add(checkBox4);
-            frame.setSize(500, 1100);
-            // task4Label.setText(t);
+            frame.setSize(500, 500);
         }
-        else if (task5Label.getText().isEmpty()) {
-            checkBox5 = new JCheckBox(t);
+        else if (checkBox5.getText().isEmpty()) {
+            checkBox5.setText(t);
             checkBox5.setBounds(5,148,20,153);
             checkBox5.setFont(new Font("Consolas", Font.PLAIN,15));
             panel.add(checkBox5);
-            frame.setSize(500, 1400);
-            // task5Label.setText(t);
+            frame.setSize(500, 600);
         }
     }
 
