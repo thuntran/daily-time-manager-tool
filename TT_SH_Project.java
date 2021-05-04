@@ -33,7 +33,7 @@ class TT_SH_Project {
         } while (op != '0');
     } // main
 
-    static void enterTask(ArrayList<Todo> toDoList) {
+    static void enterTask(ArrayList<Todo> toDoList) { // at this point, we want to synchronize main with GUI
         System.out.print("Enter a task: ");
         scan.nextLine();
         String task = scan.nextLine();
