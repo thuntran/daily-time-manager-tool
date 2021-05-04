@@ -1,4 +1,4 @@
-class Todo {
+class Todo extends TT_SH_Project{
     private String task;
     private int hours;
     private int minutes;

@@ -50,6 +50,16 @@ class TT_SH_Project {
         for (int i = 0; i < toDoList.size(); i++) {
             System.out.println((i+1) + ". " + toDoList.get(i));
         }
+        System.out.println("Enter a task number to time that task: ");
+        int i = scan.nextInt();//1
+        if (i>0 && i <= toDoList.size()){
+            Stopwatch stopwatch = new Stopwatch();
+            scan.nextLine();
+            scan.nextLine();
+            if (stopwatch.hours != 0 || stopwatch.minutes != 0 || stopwatch.seconds != 0)
+                toDoList.set(i-1, new Todo(toDoList.get(i-1).getTask(), stopwatch.hours, stopwatch.minutes, stopwatch.seconds));
+                System.out.println("task time modified: " + toDoList.get(i-1));
+        }
     } // print
 
     static void totalTime(ArrayList<Todo> toDoList) {
