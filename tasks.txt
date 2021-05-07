@@ -1,3 +1,2 @@
-do csc,0,0,2,true
-do chm,0,0,2,true
-do mth,0,0,0,false
+CHM homework,0,0,1,true
+CSC homework,0,0,0,false

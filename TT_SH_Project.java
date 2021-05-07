@@ -1,5 +1,11 @@
 import java.util.*;
+
+import javax.swing.text.DateFormatter;
+
 import java.io.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+   
 
 
 class TT_SH_Project {
@@ -31,10 +37,13 @@ class TT_SH_Project {
             }
         }
         fin.close();
-
+        clear();
+        System.out.print("Today's date is: ");
+        getDate();
+        System.out.println();
         char op;
         do {
-            System.out.print("\nMENU\n1. Add a new task\n2. Choose an uncompleted task to time\n3. View completed tasks\n4. View total time taken\n0. Quit\nChoose an option (0 - 4): ");
+            System.out.print("\nMENU\n1. Add a new task\n2. Choose an uncompleted task to time\n3. Remove uncompleted task from the list\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
             op = scan.next().charAt(0);
             switch (op) {
                 case '1':
@@ -44,9 +53,12 @@ class TT_SH_Project {
                     timeUncompleted(uncompleted);
                     break;
                 case '3':
-                    printCompleted(uncompleted, completed);
+                    removeUncompleted(uncompleted);
                     break;
                 case '4':
+                    printCompleted(uncompleted, completed);
+                    break;
+                case '5':
                     totalTime(completed);
                     break;
                 case '0':
@@ -210,6 +222,58 @@ class TT_SH_Project {
         }
     } // timeUncompleted
 
+    static void removeUncompleted(ArrayList<Todo> uncompleted) { 
+        for (int j = 0; j < uncompleted.size(); j++) {
+            System.out.println((j + 1) + ". " + uncompleted.get(j));
+        }
+        if (uncompleted.size() == 0) {// empty uncompleted
+            System.out.print("No uncompleted task.");
+            return;
+        }
+        System.out.print("Enter a task number to remove: ");
+        int removeNum = scan.nextInt();
+        //---------------------------------------File-----------------------------
+        //read the original file again 
+        try { // open fin again
+            fin = new Scanner(file1); // read the file
+        } 
+        catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        PrintWriter fout = null;
+        File file2 = new File("tasksCopy.txt");
+        try {
+            fout = new PrintWriter(file2); // write in a new file
+        } catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        // transfer content from new file to old file
+        while(fin.hasNext()) {
+            String line = fin.nextLine(); // read line by line
+            String [] tasklist = line.split(",");
+            if (tasklist[0].equals(uncompleted.get(removeNum-1).getTask())){ //if the task just read in the file is same as the newly timed task
+                fout.write("\n");//update that line
+            }
+            else fout.write(line + "\n");//if not, then just write the old info
+        }
+        System.out.println("Tasks updated in tasks.txt");
+        fin.close();
+        fout.close();
+        boolean a = file1.delete(); // delete the old file
+        boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
+        //---------------------------------------------------------------------------
+        // PrintWriter fout = null;
+        // try {
+        //     fout = new PrintWriter(new File("tasks.txt")); // write in the file
+        // } catch (IOException ex) { // IOException: input-output exception
+        //     System.out.print(ex);
+        // }
+        // fout.write(newTask.getTask() + "," + newTask.getHours() + "," + newTask.getMinutes() + "," + newTask.getSeconds() + "\n");
+        // System.out.println("Tasks updated in tasks.txt");
+        // fout.close();
+        uncompleted.remove(removeNum-1);
+    } // enterTask
+
     static void printCompleted(ArrayList<Todo> uncompleted, ArrayList<Todo> completed) {
         for (int i = 0; i < completed.size(); i++) {
             System.out.println((i + 1) + ". " + completed.get(i));
@@ -237,4 +301,45 @@ class TT_SH_Project {
         System.out.println("Total time: " + hoursString + ":" + minutesString + ":" + secondsString);
         // System.out.println("Total time: " + total); // test
     } // totalTime
+
+    static void getDate(){
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); 
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dateFormatter.format(now));
+    }
+
+    static void clear(){
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss"); 
+        LocalDateTime now = LocalDateTime.now();
+        String time = timeFormatter.format(now);
+        if (time.equals("23:38:00")) {
+            //---------------------------------------File-----------------------------
+            try { // open fin again
+                fin = new Scanner(file1); // read the file
+            } 
+            catch (IOException ex) { // IOException: input-output exception
+                System.out.print(ex);
+            }
+            PrintWriter fout = null;
+            File file2 = new File("tasksCopy.txt");
+            try {
+                fout = new PrintWriter(file2); // write in a new file
+            } catch (IOException ex) { // IOException: input-output exception
+                System.out.print(ex);
+            }
+            // transfer content from new file to old file
+            while(fin.hasNext()) {
+                String line = fin.nextLine(); // read line by line
+                fout.write("\n");//update that line
+            }
+            System.out.println("Tasks deleted in tasks.txt");
+            fin.close();
+            fout.close();
+            boolean a = file1.delete(); // delete the old file
+            boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
+            //---------------------------------------------------------------------------
+
+        }
+
+    }
 } // class
