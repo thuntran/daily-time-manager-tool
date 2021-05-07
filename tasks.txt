@@ -1,4 +1,2 @@
-mth homework,0,0,3,true
-swimming,0,0,2,true
-csc hw,0,0,0,false
-new task,0,0,0,false
+CHM homework,0,0,1,true
+CSC homework,0,0,0,false
