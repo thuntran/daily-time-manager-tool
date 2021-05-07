@@ -1,10 +1,8 @@
 import java.util.*;
-
-import javax.swing.text.DateFormatter;
-
 import java.io.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime; 
+import java.time.format.DateTimeFormatter; 
    
 
 
@@ -40,7 +38,6 @@ class TT_SH_Project {
         clear();
         System.out.print("Today's date is: ");
         getDate();
-        System.out.println();
         char op;
         do {
             System.out.print("\nMENU\n1. Add a new task\n2. Choose an uncompleted task to time\n3. Remove uncompleted task from the list\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
@@ -67,7 +64,6 @@ class TT_SH_Project {
                 default: System.out.println("Invalid input, please try again.");
             }
         } while (op != '0');
-        fin.close();
     } // main
 
     static void enterTask(ArrayList<Todo> uncompleted) { 
@@ -302,17 +298,19 @@ class TT_SH_Project {
         // System.out.println("Total time: " + total); // test
     } // totalTime
 
-    static void getDate(){
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); 
+    static void getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dateFormatter.format(now));
     }
 
-    static void clear(){
+    static void clear() {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss"); 
-        LocalDateTime now = LocalDateTime.now();
-        String time = timeFormatter.format(now);
-        if (time.equals("23:38:00")) {
+        LocalTime now = LocalTime.now();
+        now = LocalTime.parse(timeFormatter.format(now), timeFormatter);
+        LocalTime end = LocalTime.parse("00:00:00");
+        System.out.println(now); // test
+        if (now.isBefore(end)) {
             //---------------------------------------File-----------------------------
             try { // open fin again
                 fin = new Scanner(file1); // read the file
@@ -321,9 +319,9 @@ class TT_SH_Project {
                 System.out.print(ex);
             }
             PrintWriter fout = null;
-            File file2 = new File("tasksCopy.txt");
+            //File file2 = new File("tasksCopy.txt");
             try {
-                fout = new PrintWriter(file2); // write in a new file
+                fout = new PrintWriter(file1); // write in a new file
             } catch (IOException ex) { // IOException: input-output exception
                 System.out.print(ex);
             }
@@ -332,11 +330,11 @@ class TT_SH_Project {
                 String line = fin.nextLine(); // read line by line
                 fout.write("\n");//update that line
             }
-            System.out.println("Tasks deleted in tasks.txt");
+            System.out.println("Tasks.txt cleared.");
             fin.close();
             fout.close();
-            boolean a = file1.delete(); // delete the old file
-            boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
+            //boolean a = file1.delete(); // delete the old file
+            //boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
             //---------------------------------------------------------------------------
 
         }
