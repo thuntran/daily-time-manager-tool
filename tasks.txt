@@ -1,3 +1,2 @@
-do mth homework,0,0,3,true
 do itl homework,0,0,2,true
 do sds homework,1,30,2,false
