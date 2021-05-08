@@ -1,4 +1,3 @@
-do mth homework,0,0,3,true
 do itl homework,0,0,2,true
 do csc homework,0,0,0,false
 do phy homework,0,0,2,false

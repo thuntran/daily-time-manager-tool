@@ -4,29 +4,70 @@
 ### Authors: Thu Tran, Sophie (Haeun) Song
 
 
+### Date: May 12th, 2021
+
+
 ### Class: CSC 212 Programming With Data Structures - Spring 2021 - Smith College
 
 
 ### Abstract:
-    Our program, Time Manager, was created to provide users a tool to manage their time effectively by keeping track of the tasks they have. Our aim is to make this Time Manager easy to use for a wide range of users, so
-    different groups of audiences, ranging from students to workers, can organize their study or work-related tasks and check the time spent to complete each tasks. 
-
-    In particular, our time manager program allows the user to:
-        1/ Enter a new task to their to-do list
-        2/ View their added tasks and choose a task to time. When the users complete their task, they can check the task off by clicking it, and it will appear as the completed task.
-        3/ Check the total time taken for the completed tasks. This can inform the user how much time they have used to complete their daily their to-do tasks,
+    Our program, the Daily Time Manager, was created to provide the users a tool to manage their time effectively by keeping track of the tasks they have. 
+    Different groups of audiences, ranging from students to workers, can organize their to-dos for a day, and check the time spent to complete each tasks. 
+    The users can create daily to-do list by entering the tasks, and time them using the stopwatch incorporated in this program.
+    
+    In particular, our program allows the users to achieve the following:
+        1/ Add and delete a task in their to-do list
+        2/ View their to-do list and choose a task to time. 
+           When the users finish timing the task, they can mark it as completed. 
+           The task will then be removed from the to-do list and add on to the completed task list.
+        3/ View completed tasks in the list with the time taken to finish them.
+        4/ Check the total time spent for the completed tasks. 
+           This can inform the users how much time they spent on the to-dos in a day.
+    
 
     In this program, we made use of object-oriented programming to create different classes that serve our purposes: 
-        - A Todo class that allows us to create instances which represent the tasks and their corresponding completed time (in hours, minutes and seconds).
-        - A Stopwatch class that allows us to create stopwatches that help the user with the timing. 
+        - A Todo class. It allows us to create instances which represent the tasks and their states.
+          Attributes include the following: 
+          *task*: String object that stores the content of the task that users create. 
+          *hours*: Integer object that keeps track of the hours spent on the task.
+          *minutes*: Integer object that keeps track of the minutes spent on the task. 
+          *seconds*: Integer object that keeps track of the seconds spent on the task.
+          *complete*: Boolean object that shows the completion of the task (false = uncompleted task, true = completed task).
 
-    The main data structure we used in this program is ArrayList, which is used to store the Todo objects. We decided to work mainly with ArrayList because it is the data structure that both of us 
-    are most comfortable working with in terms of familiarity with the methods. Also, we frequently made use of traversing through the data structure to write our different functions, and since each element in
-    an ArrayList has an index, it will be more convenient for us to make use of indices to write our desired code.
+        - A Stopwatch class. It allows us to create stopwatches that help the user to time the task. 
+
     
-    In the ArrayList, we stored Todo object that has four attributes: task, hours, minutes, seconds and print them out using toString method. 
-    When the user first enters the task, the hours, minutes, and seconds won't show on the screen (since they are set by default to be zero). 
-    When the user runs the timer and stops it, the time will be recorded, and the time related attributes will be updated accordingly. The updated times will be returned on the console using the print method.
+    The main data structure we used in this program is ArrayList, which stores the Todo objects. We have two main ArrayLists called *uncompleted* and *completed*.
+    After reading the file and storing each lines as Todo objects, the objects will be parsed into the *uncompleted* or *completed* list according to their boolean attributes. 
+    
+    The Menu is explained in detail below:
+    
+    1. View entire file 
+        - This option allow the users to view the file in the raw format, showing all the attributes of the Todo object.
+    2. View uncompleted task 
+        - This option allow the users to view the elements in the ArrayList *uncompleted*. The elements will be enumerated with the numbers.
+    3. Add new task 
+        - This option allow the users to enter a new task.  
+          When the users first enter the task, the attributes *hours*, *minutes*, and *seconds* are set by default to be zero, and *complete* is set by default to be false. 
+          Therefore, the task will automatically be added to the *uncompleted* list. 
+    3. Delete a task 
+        - This option allow the users to delete a task existing in the list, regardless of their status. 
+          Elements in ArrayLists *uncompleted* and *completed* will both be added to the temorary ArrayList *fileList*, and the elements in *fileList* will be enumerated.
+          The users will select the number that corresponds to the task that they want to delete. 
+          If the boolean attribute of the chosen task is false, the task will be deleted from the ArrayList *uncompleted*, and vice versa. 
+    4. Time a task
+        - This option allow the users to choose an element from the ArrayList *uncompleted* to measure the time they will spend on doing that task. 
+          The stopwatch graphics window will be opened, and the users can press Start button to start timing. 
+          After they finished measuring the time, they can click Done button and close the window, and the time will be processed and printed on the console.
+          After that, the users will face the option to mark the task as complete or not. 
+          If the users choose to set the task as completed, the boolean attribute will be updated to be true, and the corresponding element will be removed from the ArrayList *uncompleted* and be added to the ArrayList *completed*.
+    5. View completed tasks
+        - This option allow the users to view the elements in the ArrayList *completed* with the time taken to finish each of them. The elements will be enumerated with the numbers.
+    6. View total time taken on the tasks
+        - This option calculates the total time taken on all of the tasks in the *completed* list and prints it. The users will see how much time they spent on the tasks in one day.
+    0. Quit 
+        - If the users choose to quit, they will get the option to save their data of ArrayLists into the "tasks.txt" file.
+    
     
     Also, in this program, we utilize graphics made from Java Swing to create a simple graphic user interface (GUI) that the user can interact with to manage their to-do list, and also to create the stopwatch for timing.
     While the use of graphics may pose certain challenges as both of us work with Java graphics for the first time, we think that should the graphics be appropriately implemently, it can make our Time Manager more user-friendly
@@ -34,15 +75,14 @@
 
 
 ### Sample input file:
-    Currently we are still working on the file because it needs to be written in first before being read, but here is a sample of how the lines should look like:
 
-    <task,hours,minutes,time> (This line is NOT in the file)
+    <*task*,*hours*,*minutes*,*seconds*,*complete*> (This line is NOT in the file)
     
-    do csc homework,01,23,00
-    do chm homework,00,22,44
-    do mth homework,01,44,22
-    do yoga,00,33,12
-    cook dinner,01,15,23
+    do csc homework,01,23,00,true
+    do chm homework,00,22,44,false
+    do mth homework,01,44,22,true
+    do yoga,00,33,12,true
+    cook dinner,01,15,23,true
 
 
 ### Project files: 
@@ -55,14 +95,4 @@
     OS: Windows
     Java version: 15.0.2
     Editor: Visual Studio Code, version 1.55.2
-
-
-1. View uncompleted tasks
-2. Add a new task
-3. Delete a task
-3. Time a task
-4. Mark a task as complete
-5. View completed tasks
-6. View total time taken on the tasks
-0. Quit
 
