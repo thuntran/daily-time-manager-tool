@@ -5,12 +5,12 @@ class Todo extends TT_SH_Project{
     private int seconds;
     private boolean complete;
 
-    public Todo (String task, int hours, int minutes, int seconds) { // constructor
+    public Todo (String task, int hours, int minutes, int seconds, boolean complete) { // constructor
         this.task = task;
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;
-        this.complete = false;
+        this.complete = complete;
     }
 
     public void setTask(String task) { // setter: set the value for task

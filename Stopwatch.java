@@ -3,9 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
-import java.util.*;
-import java.io.*; //eventually needed for file
-
 class Stopwatch extends TT_SH_Project implements ActionListener {
     
     JFrame frame = new JFrame();
