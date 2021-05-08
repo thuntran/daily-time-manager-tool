@@ -1,7 +1,8 @@
 import java.util.*;
 import java.io.*;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime; 
+import java.time.format.DateTimeFormatter; 
    
 
 
@@ -36,7 +37,6 @@ class TT_SH_Project {
         fin.close();
         System.out.print("Today's date is: ");
         getDate();
-        System.out.println();
         char op;
         do {
             System.out.print("\nMENU\n1. View entire file\n2. View uncompleted tasks in the file\n3. Add a new task in the file\n4. Delete a task in the file\n5. Time a task in the file\n6. View completed tasks in the file\n7. View total time taken on the tasks\n8. Clear the file\n0. Quit\nChoose an option (0 - 8): ");
@@ -73,7 +73,6 @@ class TT_SH_Project {
                 default: System.out.println("Invalid input, please try again.");
             }
         } while (op != '0');
-        fin.close();
     } // main
 
     static void viewFile() {
@@ -343,8 +342,8 @@ class TT_SH_Project {
         // System.out.println("Total time: " + total); // test
     } // totalTime
 
-    static void getDate(){
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd"); 
+    static void getDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dateFormatter.format(now));
     }
@@ -361,9 +360,9 @@ class TT_SH_Project {
                 System.out.print(ex);
             }
             PrintWriter fout = null;
-            File file2 = new File("tasksCopy.txt");
+            //File file2 = new File("tasksCopy.txt");
             try {
-                fout = new PrintWriter(file2); // write in a new file
+                fout = new PrintWriter(file1); // write in a new file
             } catch (IOException ex) { // IOException: input-output exception
                 System.out.print(ex);
             }
@@ -372,11 +371,11 @@ class TT_SH_Project {
                 String line = fin.nextLine(); // read line by line
                 fout.write("");//update that line
             }
-            System.out.println("Tasks deleted in tasks.txt");
+            System.out.println("Tasks.txt cleared.");
             fin.close();
             fout.close();
-            boolean a = file1.delete(); // delete the old file
-            boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
+            //boolean a = file1.delete(); // delete the old file
+            //boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
             //---------------------------------------------------------------------------
         }
         else if (reply.equalsIgnoreCase("n")) {return;}
