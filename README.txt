@@ -1,4 +1,4 @@
-### Title: Time Manager
+### Title: Daily Time Manager
 
 
 ### Authors: Thu Tran, Sophie (Haeun) Song
@@ -56,4 +56,13 @@
     Java version: 15.0.2
     Editor: Visual Studio Code, version 1.55.2
 
+
+1. View uncompleted tasks
+2. Add a new task
+3. Delete a task
+3. Time a task
+4. Mark a task as complete
+5. View completed tasks
+6. View total time taken on the tasks
+0. Quit
 

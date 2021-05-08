@@ -1,7 +1,4 @@
 import java.util.*;
-
-import javax.swing.text.DateFormatter;
-
 import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -37,29 +34,38 @@ class TT_SH_Project {
             }
         }
         fin.close();
-        clear();
         System.out.print("Today's date is: ");
         getDate();
         System.out.println();
         char op;
         do {
-            System.out.print("\nMENU\n1. Add a new task\n2. Choose an uncompleted task to time\n3. Remove uncompleted task from the list\n4. View completed tasks\n5. View total time taken\n0. Quit\nChoose an option (0 - 5): ");
+            System.out.print("\nMENU\n1. View entire file\n2. View uncompleted tasks in the file\n3. Add a new task in the file\n4. Delete a task in the file\n5. Time a task in the file\n6. View completed tasks in the file\n7. View total time taken on the tasks\n8. Clear the file\n0. Quit\nChoose an option (0 - 8): ");
             op = scan.next().charAt(0);
+            System.out.println();
             switch (op) {
                 case '1':
-                    enterTask(uncompleted);
+                    viewFile();
                     break;
                 case '2':
-                    timeUncompleted(uncompleted);
+                    printUncompleted(uncompleted);
                     break;
                 case '3':
-                    removeUncompleted(uncompleted);
+                    enterTask(uncompleted);
                     break;
                 case '4':
-                    printCompleted(uncompleted, completed);
+                    removeTask(uncompleted, completed);
                     break;
                 case '5':
+                    timeUncompleted(uncompleted);
+                    break;
+                case '6':
+                    printCompleted(uncompleted, completed);
+                    break;
+                case '7':
                     totalTime(completed);
+                    break;
+                case '8':
+                    clear();
                     break;
                 case '0':
                     System.out.println("Goodbye!\n(Please close all your windows to completely end this session)");
@@ -70,6 +76,34 @@ class TT_SH_Project {
         fin.close();
     } // main
 
+    static void viewFile() {
+        try { // open fin 
+            fin = new Scanner(file1); // read the file
+        } catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        while(fin.hasNext()){//while next line exists,
+            String task = fin.nextLine(); 
+            System.out.println(task);//print the line
+        }
+        fin.close();
+    }//viewFile
+
+
+    static void printUncompleted(ArrayList<Todo> uncompleted) {
+        for (int j = 0; j < uncompleted.size(); j++) {
+            System.out.println((j + 1) + ". " + uncompleted.get(j));
+        }
+        if (uncompleted.size() == 0) {// empty uncompleted
+            System.out.print("No uncompleted task. Do you want to add one (y/n)? ");
+            char toAdd = scan.next().charAt(0);        
+            if (toAdd == 'y') {
+                enterTask(uncompleted);
+                return;
+            }   
+        }
+    }//printUncompleted
+
     static void enterTask(ArrayList<Todo> uncompleted) { 
         System.out.print("Enter a task: ");
         scan.nextLine();
@@ -77,16 +111,6 @@ class TT_SH_Project {
         Todo newTask = new Todo(task, 0, 0, 0);
         uncompleted.add(newTask);
         System.out.println("Task added.");
-
-        // read the original file again 
-        // Scanner fin = null;
-        // File file1 = new File("tasks.txt");
-        // try { // open fin again
-        //     fin = new Scanner(file1); // read the file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // // write inside another file the updated friend list
         //---------------------------------------File-----------------------------
         //read the original file again 
         try { // open fin again
@@ -114,16 +138,84 @@ class TT_SH_Project {
         boolean a = file1.delete(); // delete the old file
         boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
         //---------------------------------------------------------------------------
-        // PrintWriter fout = null;
-        // try {
-        //     fout = new PrintWriter(new File("tasks.txt")); // write in the file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // fout.write(newTask.getTask() + "," + newTask.getHours() + "," + newTask.getMinutes() + "," + newTask.getSeconds() + "\n");
-        // System.out.println("Tasks updated in tasks.txt");
-        // fout.close();
     } // enterTask
+
+    static void removeTask(ArrayList<Todo> uncompleted, ArrayList <Todo> completed) { 
+        ArrayList <Todo> fileList = new ArrayList <Todo> ();
+        try { // open fin 
+            fin = new Scanner(file1); // read the file
+        } catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        while(fin.hasNext()){//while next line exists,
+            String task = fin.nextLine();
+            String [] tasklist = task.split(",");
+            String taskname = tasklist[0];
+            int taskhours = Integer.parseInt(tasklist[1]);
+            int taskminutes = Integer.parseInt(tasklist[2]);
+            int taskseconds = Integer.parseInt(tasklist[3]); //assign each components their "key"
+            boolean taskboolean = Boolean.parseBoolean(tasklist[4]);
+			Todo oldtask = new Todo (taskname, taskhours, taskminutes, taskseconds); //create new Todo object with information
+            fileList.add(oldtask);
+        }
+        for (int i = 0; i < fileList.size(); i++){
+            System.out.println((i+1) + ". " + fileList.get(i));
+        }
+        System.out.print("Enter a task number to remove: ");
+        int removeNum = scan.nextInt();
+        fin.close();
+
+        // for (int j = 0; j < uncompleted.size(); j++) {
+        //     System.out.println((j + 1) + ". " + uncompleted.get(j));
+        // }
+        // if (uncompleted.size() == 0) {// empty uncompleted
+        //     System.out.print("No uncompleted task.");
+        //     return;
+        // }
+        // System.out.print("Enter a task number to remove: ");
+        // int removeNum = scan.nextInt();
+        //---------------------------------------File-----------------------------
+        //read the original file again 
+
+        try { // open fin again
+            fin = new Scanner(file1); // read the file
+        } 
+        catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        PrintWriter fout = null;
+        File file2 = new File("tasksCopy.txt");
+        try {
+            fout = new PrintWriter(file2); // write in a new file
+        } catch (IOException ex) { // IOException: input-output exception
+            System.out.print(ex);
+        }
+        // transfer content from new file to old file
+        while(fin.hasNext()) {
+            String line = fin.nextLine(); // read line by line
+            String [] tasklist = line.split(",");
+            if (tasklist[0].equals(fileList.get(removeNum-1).getTask())){ //if the task just read in the file is same as the newly timed task
+                fout.write("");//update that line
+            }
+            else fout.write(line + "\n");//if not, then just write the old info
+        }        
+        System.out.println("Tasks updated in tasks.txt");
+        fin.close();
+        fout.close();
+        boolean a = file1.delete(); // delete the old file
+        boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
+        //---------------------------------------------------------------------------
+        for (int i = 0; i < uncompleted.size(); i++){
+            if (fileList.get(removeNum-1).getTask().equals(uncompleted.get(i).getTask())){
+                uncompleted.remove(i);
+            }
+        }
+        for (int i = 0; i < completed.size(); i++){
+            if (fileList.get(removeNum-1).getTask().equals(completed.get(i).getTask())){
+                completed.remove(i);
+            }
+        }
+    } // removeTask
 
     static void timeUncompleted(ArrayList<Todo> uncompleted) {
         for (int j = 0; j < uncompleted.size(); j++) {
@@ -222,57 +314,6 @@ class TT_SH_Project {
         }
     } // timeUncompleted
 
-    static void removeUncompleted(ArrayList<Todo> uncompleted) { 
-        for (int j = 0; j < uncompleted.size(); j++) {
-            System.out.println((j + 1) + ". " + uncompleted.get(j));
-        }
-        if (uncompleted.size() == 0) {// empty uncompleted
-            System.out.print("No uncompleted task.");
-            return;
-        }
-        System.out.print("Enter a task number to remove: ");
-        int removeNum = scan.nextInt();
-        //---------------------------------------File-----------------------------
-        //read the original file again 
-        try { // open fin again
-            fin = new Scanner(file1); // read the file
-        } 
-        catch (IOException ex) { // IOException: input-output exception
-            System.out.print(ex);
-        }
-        PrintWriter fout = null;
-        File file2 = new File("tasksCopy.txt");
-        try {
-            fout = new PrintWriter(file2); // write in a new file
-        } catch (IOException ex) { // IOException: input-output exception
-            System.out.print(ex);
-        }
-        // transfer content from new file to old file
-        while(fin.hasNext()) {
-            String line = fin.nextLine(); // read line by line
-            String [] tasklist = line.split(",");
-            if (tasklist[0].equals(uncompleted.get(removeNum-1).getTask())){ //if the task just read in the file is same as the newly timed task
-                fout.write("\n");//update that line
-            }
-            else fout.write(line + "\n");//if not, then just write the old info
-        }
-        System.out.println("Tasks updated in tasks.txt");
-        fin.close();
-        fout.close();
-        boolean a = file1.delete(); // delete the old file
-        boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
-        //---------------------------------------------------------------------------
-        // PrintWriter fout = null;
-        // try {
-        //     fout = new PrintWriter(new File("tasks.txt")); // write in the file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // fout.write(newTask.getTask() + "," + newTask.getHours() + "," + newTask.getMinutes() + "," + newTask.getSeconds() + "\n");
-        // System.out.println("Tasks updated in tasks.txt");
-        // fout.close();
-        uncompleted.remove(removeNum-1);
-    } // enterTask
 
     static void printCompleted(ArrayList<Todo> uncompleted, ArrayList<Todo> completed) {
         for (int i = 0; i < completed.size(); i++) {
@@ -309,10 +350,9 @@ class TT_SH_Project {
     }
 
     static void clear(){
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss"); 
-        LocalDateTime now = LocalDateTime.now();
-        String time = timeFormatter.format(now);
-        if (time.equals("23:38:00")) {
+        System.out.print("Are you sure that you want to clear the file (y/n) ? ");
+        String reply = scan.next();
+        if (reply.equalsIgnoreCase("y")) {
             //---------------------------------------File-----------------------------
             try { // open fin again
                 fin = new Scanner(file1); // read the file
@@ -330,7 +370,7 @@ class TT_SH_Project {
             // transfer content from new file to old file
             while(fin.hasNext()) {
                 String line = fin.nextLine(); // read line by line
-                fout.write("\n");//update that line
+                fout.write("");//update that line
             }
             System.out.println("Tasks deleted in tasks.txt");
             fin.close();
@@ -338,8 +378,11 @@ class TT_SH_Project {
             boolean a = file1.delete(); // delete the old file
             boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
             //---------------------------------------------------------------------------
-
         }
-
+        else if (reply.equalsIgnoreCase("n")) {return;}
+        else {
+            System.out.println("Reply should be y or n. Please try again.");
+            clear();
+        }
     }
 } // class
