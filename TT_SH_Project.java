@@ -8,32 +8,31 @@ class TT_SH_Project {
     static ArrayList<Todo> uncompleted = new ArrayList<>(); // arraylist that stores uncompleted tasks
     static Scanner scan = new Scanner(System.in);
     static Scanner fin = null;
-    static File file1 = new File("tasks.txt");
+    static File file = new File("tasks.txt");
     public static void main(String[] args) {
         try { // open fin 
-            fin = new Scanner(file1); // read the file
+            fin = new Scanner(file); // read the file
         } catch (IOException ex) { // IOException: input-output exception
             System.out.print(ex);
         }
-        while (fin.hasNext()) {//while next line exists,
+        while (fin.hasNext()) { // while next line still exists (read till end of file)
             String task = fin.nextLine();
-            String [] taskList = task.split(",");
-            String taskName = taskList[0];
+            String [] taskList = task.split(","); // store all the fields of the task into an array
+            String taskName = taskList[0]; // assign values to the fields of the new Todo object
             int taskHours = Integer.parseInt(taskList[1]);
             int taskMinutes = Integer.parseInt(taskList[2]);
-            int taskSeconds = Integer.parseInt(taskList[3]); //assign each components their "key"
+            int taskSeconds = Integer.parseInt(taskList[3]); 
             boolean taskBoolean = Boolean.parseBoolean(taskList[4]);
 			Todo fileTask = new Todo (taskName, taskHours, taskMinutes, taskSeconds, taskBoolean); //create new Todo object with information
-            if (taskBoolean == true){ //if true, add to completedlist
+            if (taskBoolean == true){ // if true, add task to completed list
                 completed.add(fileTask);
             }
-            else if (taskBoolean == false){ //if false, add to uncompletedlist
+            else if (taskBoolean == false){ // if false, add task to uncompleted list
                 uncompleted.add(fileTask);
             }
         }
-        fin.close();
-        System.out.print("Today's date is: ");
-        getDate();
+        fin.close(); // close the file
+        System.out.print("Today's date is: "); getDate(); // print current date
         char op;
         do {
             System.out.print("\nMENU\n1. View entire file\n2. View uncompleted tasks\n3. Add a new task\n4. Delete a task\n5. Time a task\n6. View completed tasks\n7. View total time taken on all the tasks\n0. Quit\nChoose an option (0 - 7): ");
@@ -61,9 +60,6 @@ class TT_SH_Project {
                 case '7':
                     totalTime(completed);
                     break;
-                // case '8':
-                //     clear();
-                //     break;
                 case '0':
                     saveFile();
                     System.out.println("Goodbye!\n(Please close all your windows to completely end this session)");
@@ -73,27 +69,34 @@ class TT_SH_Project {
         } while (op != '0');
     } // main
 
-    static void viewFile() {
+    static void viewFile() { // view all tasks in the file (in csv format)
         try { // open fin 
-            fin = new Scanner(file1); // read the file
+            fin = new Scanner(file); // read the file
         } catch (IOException ex) { // IOException: input-output exception
             System.out.print(ex);
         }
-        while(fin.hasNext()){//while next line exists,
+        while(fin.hasNext()){ // while next line still exists (read till end of file)
             String task = fin.nextLine(); 
-            System.out.println(task);//print the line
+            System.out.println(task); // print the task
         }
-        fin.close();
-    } //viewFile
+        fin.close(); // close the file
+    } // viewFile
 
 
-    static void printUncompleted(ArrayList<Todo> uncompleted) {
+    static void printUncompleted(ArrayList<Todo> uncompleted) { // show the list of uncompleted tasks
         for (int i = 0; i < uncompleted.size(); i++) {
             System.out.println((i + 1) + ". " + uncompleted.get(i));
         }
-        if (uncompleted.size() == 0) {// empty uncompleted
-            System.out.print("No uncompleted task. Do you want to add one (y/n)? ");
-            char toAdd = scan.next().charAt(0);        
+        if (uncompleted.size() == 0) { // empty uncompleted list
+            char toAdd;
+            do {
+                System.out.print("No uncompleted task. Do you want to add one (y/n)? "); // allow user to add a new task from here
+                toAdd = scan.next().charAt(0);
+
+                if (toAdd != 'y' && toAdd != 'n')
+                    System.out.println("Input must be y or n. Please try again.");
+            } while (toAdd != 'y' && toAdd != 'n');
+                    
             if (toAdd == 'y') {
                 enterTask(uncompleted);
                 return;
@@ -101,234 +104,113 @@ class TT_SH_Project {
         }
     } // printUncompleted
 
-    static void enterTask(ArrayList<Todo> uncompleted) { 
+    static void enterTask(ArrayList<Todo> uncompleted) { // add a new task
         System.out.print("Enter a task: ");
         scan.nextLine();
         String task = scan.nextLine();
-        Todo newTask = new Todo(task, 0, 0, 0, false);
+        Todo newTask = new Todo(task, 0, 0, 0, false); // create a new Todo object (task), uncompleted by default
         uncompleted.add(newTask);
         System.out.println("Task added.");
-        // //---------------------------------------File-----------------------------
-        // //read the original file again 
-        // try { // open fin again
-        //     fin = new Scanner(file1); // read the file
-        // } 
-        // catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // PrintWriter fout = null;
-        // File file2 = new File("tasksCopy.txt");
-        // try {
-        //     fout = new PrintWriter(file2); // write in a new file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // // transfer content from new file to old file
-        // while(fin.hasNext()) {
-        //     String line = fin.nextLine(); // read line by line
-        //     fout.write(line + "\n");
-        // }
-        // fout.write(newTask.getTask() + "," + newTask.getHours() + "," + newTask.getMinutes() + "," + newTask.getSeconds() + "," + newTask.getComplete() + "\n");
-        // System.out.println("Tasks updated in tasks.txt");
-        // fin.close();
-        // fout.close();
-        // boolean a = file1.delete(); // delete the old file
-        // boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
-        // //---------------------------------------------------------------------------
     } // enterTask
 
-    static void removeTask(ArrayList<Todo> uncompleted, ArrayList <Todo> completed) { 
-        
-        // try { // open fin 
-        //     fin = new Scanner(file1); // read the file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // while(fin.hasNext()){//while next line exists,
-        //     String task = fin.nextLine();
-        //     String [] taskList = task.split(",");
-        //     String taskName = taskList[0];
-        //     int taskHours = Integer.parseInt(taskList[1]);
-        //     int taskMinutes = Integer.parseInt(taskList[2]);
-        //     int taskSeconds = Integer.parseInt(taskList[3]); //assign each components their "key"
-        //     boolean taskBoolean = Boolean.parseBoolean(taskList[4]);
-		// 	Todo fileTask = new Todo (taskName, taskHours, taskMinutes, taskSeconds); //create new Todo object with information
-        //     fileList.add(fileTask);
-        // }
-        // for (int i = 0; i < fileList.size(); i++){
-        //     System.out.println((i+1) + ". " + fileList.get(i) + " " + fileList.get(i).getComplete());
-        // }
-        // for (int j = 0; j < uncompleted.size(); j++) { // print uncompleted tasks
-        //     System.out.println((j + 1) + ". " + uncompleted.get(j) + " " + uncompleted.get(j).getComplete());
-        // }
-
-        // int index = completed.size() + 1;
-        // for (int k = 0; k < completed.size(); k++) { // print completed tasks
-        //     System.out.println(index + ". " + completed.get(k) + " " + completed.get(k).getComplete());
-        //     index++;
-        // }
-        ArrayList <Todo> fileList = new ArrayList <Todo> ();
+    static void removeTask(ArrayList<Todo> uncompleted, ArrayList <Todo> completed) { // remove an existing task
+        ArrayList <Todo> fileList = new ArrayList <Todo> (); // create a fileList arraylist the stores all the tasks, uncompleted or completed
         fileList.addAll(uncompleted);
         fileList.addAll(completed);
-        for (int i = 0; i < fileList.size(); i++) {
-            System.out.println((i + 1) + ". " + fileList.get(i) + " " + fileList.get(i).getComplete());
+        for (int i = 0; i < fileList.size(); i++) { // print out all tasks
+            System.out.println((i + 1) + ". " + fileList.get(i) + " " + (fileList.get(i).getComplete() ? "completed" : "uncompleted"));
         }
-
-        System.out.print("Enter a task number to delete: ");
-        int removeNum = scan.nextInt();
-        for (int i = 0; i < uncompleted.size(); i++){
-            if (fileList.get(removeNum-1).getTask().equals(uncompleted.get(i).getTask())){
+        int removeNum = 0;
+        do {
+            try {
+                System.out.print("Enter a task number to delete: "); // ask for the index (on the list) of the task to delete, which is shown on screen
+                removeNum = scan.nextInt();
+            } catch (IndexOutOfBoundsException ex) { // technically i don't need this?
+                System.out.println("Index out of bounds. Please try again.");
+                scan.nextLine();
+                return;
+                // System.out.print("Enter a task number to delete: "); 
+                // scan.nextLine();
+                // removeNum = scan.nextInt();
+            } catch (InputMismatchException ex) {
+                System.out.println("Input must be a positive integer. Please try again.");
+                scan.nextLine();
+                return;
+                // System.out.print("Enter a task number to delete: "); 
+                // scan.nextLine();
+                // removeNum = scan.nextInt();  
+            }
+        } while (removeNum > fileList.size() || removeNum == 0);
+        
+        
+        for (int i = 0; i < uncompleted.size(); i++) { // remove the task from uncompleted arraylist if it's an uncompleted task
+            if (fileList.get(removeNum-1).getTask().equals(uncompleted.get(i).getTask())) { // compare task to be deleted vs task in uncompleted arraylist
                 uncompleted.remove(i);
             }
         }
-        for (int i = 0; i < completed.size(); i++){
-            if (fileList.get(removeNum-1).getTask().equals(completed.get(i).getTask())){
+        for (int i = 0; i < completed.size(); i++) { // remove the task from completed arraylist if it's an completed task
+            if (fileList.get(removeNum-1).getTask().equals(completed.get(i).getTask())) { // compare task to be deleted vs task in completed arraylist
                 completed.remove(i);
             }
         }
         System.out.println("Task deleted.");
-        // fin.close();
-
-        // //---------------------------------------File-----------------------------
-        // //read the original file again 
-
-        // try { // open fin again
-        //     fin = new Scanner(file1); // read the file
-        // } 
-        // catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // PrintWriter fout = null;
-        // File file2 = new File("tasksCopy.txt");
-        // try {
-        //     fout = new PrintWriter(file2); // write in a new file
-        // } catch (IOException ex) { // IOException: input-output exception
-        //     System.out.print(ex);
-        // }
-        // // transfer content from new file to old file
-        // while(fin.hasNext()) {
-        //     String line = fin.nextLine(); // read line by line
-        //     String [] tasklist = line.split(",");
-        //     if (tasklist[0].equals(fileList.get(removeNum-1).getTask())){ //if the task just read in the file is same as the newly timed task
-        //         fout.write("");//update that line
-        //     }
-        //     else fout.write(line + "\n");//if not, then just write the old info
-        // }        
-        // System.out.println("Tasks updated in tasks.txt");
-        // fin.close();
-        // fout.close();
-        // boolean a = file1.delete(); // delete the old file
-        // boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
-        // //---------------------------------------------------------------------------
-        
     } // removeTask
 
-    static void timeUncompleted(ArrayList<Todo> uncompleted) {
+    static void timeUncompleted(ArrayList<Todo> uncompleted) { // time a task that is marked as uncompleted
         for (int i = 0; i < uncompleted.size(); i++) {
             System.out.println((i + 1) + ". " + uncompleted.get(i));
         }
-        if (uncompleted.size() == 0) {// empty uncompleted
-            System.out.print("No uncompleted task. Do you want to add one (y/n)? ");
-            char toAdd = scan.next().charAt(0);        
+        if (uncompleted.size() == 0) { // empty uncompleted arraylist
+            char toAdd;
+            do {
+                System.out.print("No uncompleted task. Do you want to add one (y/n)? "); // allow user to add a new task from here
+                toAdd = scan.next().charAt(0);
+
+                if (toAdd != 'y' && toAdd != 'n')
+                    System.out.println("Input must be y or n. Please try again.");
+            } while (toAdd != 'y' && toAdd != 'n');
+
             if (toAdd == 'y') {
                 enterTask(uncompleted);
                 return;
             }   
         }
-        System.out.print("Enter a task number to time that task: ");
-        int i = scan.nextInt();//1
+        System.out.print("Enter a task number to time that task: "); // ask for the index (on the list) of the task to time, which is shown on screen
+        int i = scan.nextInt(); // exception needed
         if (i > 0 && i <= uncompleted.size()) {
-            Stopwatch stopwatch = new Stopwatch();
-            Todo timedTask = uncompleted.get(i-1); //initialize timedTask for file writing
+            Stopwatch stopwatch = new Stopwatch(); // create a stopwatch and run it
+            Todo timedTask = uncompleted.get(i - 1); // task that is updated after timing
             scan.nextLine();
             System.out.print("Press enter to continue after done timing.");
             scan.nextLine(); 
-            if (stopwatch.hours != 0 || stopwatch.minutes != 0 || stopwatch.seconds != 0) {
+            if (stopwatch.hours != 0 || stopwatch.minutes != 0 || stopwatch.seconds != 0) { // if timing is not 0 (there's a change), then update the task (Todo object)
                 timedTask = new Todo(uncompleted.get(i-1).getTask(), stopwatch.hours + uncompleted.get(i - 1).getHours(), stopwatch.minutes + uncompleted.get(i - 1).getMinutes(), stopwatch.seconds + uncompleted.get(i - 1).getSeconds(),  uncompleted.get(i - 1).getComplete());
-                uncompleted.set(i-1, timedTask);
+                uncompleted.set(i - 1, timedTask);
             }
-            System.out.println("Task time modified: " + uncompleted.get(i-1));
-            // //---------------------------------------File-----------------------------
-            // //read the original file again 
-            // try { // open fin again
-            //     fin = new Scanner(file1); // read the file
-            // } 
-            // catch (IOException ex) { // IOException: input-output exception
-            //     System.out.print(ex);
-            // }
-            // PrintWriter fout = null;
-            // File file2 = new File("tasksCopy.txt");
-            // try {
-            //     fout = new PrintWriter(file2); // write in a new file
-            // } catch (IOException ex) { // IOException: input-output exception
-            //     System.out.print(ex);
-            // }
-            // // transfer content from new file to old file
-            // while(fin.hasNext()) {
-            //     String line = fin.nextLine(); // read line by line
-            //     String [] tasklist = line.split(",");
-            //     if (tasklist[0].equals(timedTask.getTask())){ //if the task just read in the file is same as the newly timed task
-            //         fout.write(timedTask.getTask() + "," + timedTask.getHours() + "," + timedTask.getMinutes() + "," + timedTask.getSeconds() + "," + timedTask.getComplete() + "\n");//update that line
-            //     }
-            //     else fout.write(line + "\n");//if not, then just write the old info
-            // }
-            // System.out.println("Tasks updated in tasks.txt");
-            // fin.close();
-            // fout.close();
-            // boolean a = file1.delete(); // delete the old file
-            // boolean b = file2.renameTo(file1); // rename the new file to be the same as the old file
-            //     //---------------------------------------File----------------------------- 
-            System.out.print("Mark as complete (y/n)? ");
+            System.out.println("Task time modified: " + uncompleted.get(i - 1)); // inform the user about the updated task
+            System.out.print("Mark as complete (y/n)? "); // allow the user to decide whether they want to be done with the task, or come back to continue timing the task at another time during the day
             char check = scan.next().charAt(0);
             if (check == 'y') {
-                uncompleted.get(i - 1).setComplete(true);
-            //     //---------------------------------------File-----------------------------
-            //     //read the original file again 
-            //     try { // open fin again
-            //         fin = new Scanner(file1); // read the file
-            //     } 
-            //     catch (IOException ex) { // IOException: input-output exception
-            //         System.out.print(ex);
-            //     }
-            //     try {
-            //         fout = new PrintWriter(file2); // write in a new file
-            //     } catch (IOException ex) { // IOException: input-output exception
-            //         System.out.print(ex);
-            //     }
-            //     // transfer content from new file to old file
-            //     while(fin.hasNext()) {
-            //         String line = fin.nextLine(); // read line by line
-            //         String [] tasklist = line.split(",");
-            //         if (tasklist[0].equals(timedTask.getTask())){ //if the task just read in the file is same as the newly timed task
-            //             fout.write(timedTask.getTask() + "," + timedTask.getHours() + "," + timedTask.getMinutes() + "," + timedTask.getSeconds() + "," + timedTask.getComplete() + "\n");//update that line
-            //         }
-            //         else fout.write(line + "\n");//if not, then just write the old info
-            //     }
-            //     System.out.println("Tasks updated in tasks.txt");
-            //     fin.close();
-            //     fout.close();
-            //     boolean file = file1.delete(); // delete the old file
-            //     boolean f = file2.renameTo(file1); // rename the new file to be the same as the old file
-            //     //---------------------------------------File----------------------------- 
-                completed.add(uncompleted.get(i - 1));
-                uncompleted.remove(i - 1);
+                uncompleted.get(i - 1).setComplete(true); // change complete field to true (mark as completed)
+                completed.add(uncompleted.get(i - 1)); // move task to completed arraylist
+                uncompleted.remove(i - 1); // remove task from uncompleted arraylist
             }
         }
     } // timeUncompleted
 
 
-    static void printCompleted(ArrayList<Todo> uncompleted, ArrayList<Todo> completed) {
+    static void printCompleted(ArrayList<Todo> uncompleted, ArrayList<Todo> completed) { // print all completed tasks
         for (int i = 0; i < completed.size(); i++) {
             System.out.println((i + 1) + ". " + completed.get(i));
         }
-        if (completed.size() == 0) // empty completed
+        if (completed.size() == 0) // empty completed arraylist
             System.out.println("No completed task.");
     } // printCompleted
 
 
-    static void totalTime(ArrayList<Todo> completed) {
+    static void totalTime(ArrayList<Todo> completed) { // calculate and show the total time taken for all the completed tasks during the day
         int total = 0; // in seconds
-        for (int i = 0; i < completed.size(); i++) {
+        for (int i = 0; i < completed.size(); i++) { // split the total (in seconds) to hours, minutes and seconds
             total += completed.get(i).getHours() * 3600; 
             total += completed.get(i).getMinutes() * 60;
             total += completed.get(i).getSeconds();
@@ -338,62 +220,27 @@ class TT_SH_Project {
         int totalMinutes = residue1 / 60;
         int residue2 = residue1 % 60;
         int totalSeconds = residue2;
-        String secondsString = String.format("%02d", totalSeconds);
+        String secondsString = String.format("%02d", totalSeconds); // formatting for nice printing
         String minutesString = String.format("%02d", totalMinutes);
         String hoursString = String.format("%02d", totalHours);
-        System.out.println("Total time: " + hoursString + ":" + minutesString + ":" + secondsString);
+        System.out.println("Total time: " + hoursString + ":" + minutesString + ":" + secondsString); // print the total time in hours, minutes and seconds
     } // totalTime
 
-    // static void clear(){
-    //     System.out.print("Are you sure that you want to clear the file (y/n) ? ");
-    //     String reply = scan.next();
-    //     if (reply.equalsIgnoreCase("y")) {
-    //         //---------------------------------------File-----------------------------
-    //         try { // open fin again
-    //             fin = new Scanner(file1); // read the file
-    //         } 
-    //         catch (IOException ex) { // IOException: input-output exception
-    //             System.out.print(ex);
-    //         }
-    //         PrintWriter fout = null;
-    //         try {
-    //             fout = new PrintWriter(file1); // write in a new file
-    //         } catch (IOException ex) { // IOException: input-output exception
-    //             System.out.print(ex);
-    //         }
-    //         // transfer content from new file to old file
-    //         while(fin.hasNext()) {
-    //             String line = fin.nextLine(); // read line by line
-    //             fout.write("");//update that line
-    //         }
-    //         System.out.println("Tasks.txt cleared.");
-    //         fin.close();
-    //         fout.close();
-    //         //---------------------------------------------------------------------------
-    //     }
-    //     else if (reply.equalsIgnoreCase("n")) 
-    //         return;
-    //     else {
-    //         System.out.println("Reply should be y or n. Please try again.");
-    //         clear();
-    //     }
-    // } // clear
-
-    static void saveFile() {
+    static void saveFile() { // allow the user to save their progress in a file after they choose to quit the program
         int toSave;
         do {
-            System.out.print("Do you want to save all the tasks into the file tasks.txt for today (y/n)? ");
+            System.out.print("Do you want to save all the tasks into the file tasks.txt for today (y/n)? "); // ask them whether they want to save their progress or not
             toSave = Character.toLowerCase(scan.next().charAt(0)); // case-insensitive
             if (toSave != 'y' && toSave != 'n')
                 System.out.println("Input must be y or n. Please try again.");
         } while (toSave != 'y' && toSave != 'n');
 
-        if (toSave == 'n')
+        if (toSave == 'n') // if no, then return and say goodbye
             return;
-        else {
+        else { // if yes, then update in a file and say goodbye
             PrintWriter fout = null;
             try {
-                fout = new PrintWriter(file1); // write in a new file
+                fout = new PrintWriter(file); // write in a new file
             } catch (IOException ex) { // IOException: input-output exception
                 System.out.print(ex);
             }
@@ -408,7 +255,7 @@ class TT_SH_Project {
         }
     } // saveFile
 
-    static void getDate() {
+    static void getDate() { // get current date
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
         LocalDateTime now = LocalDateTime.now();
         System.out.println(dateFormatter.format(now));
