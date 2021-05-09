@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TT_SH_Project",
+            "request": "launch",
+            "mainClass": "TT_SH_Project",
+            "projectName": "csc212-final-project_9e7b28"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

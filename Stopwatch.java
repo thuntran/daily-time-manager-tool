@@ -29,6 +29,7 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
             minutes_string = String.format("%02d", minutes);
             hours_string = String.format("%02d", hours);
             timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
+            
         }
     });
     
@@ -38,30 +39,36 @@ class Stopwatch extends TT_SH_Project implements ActionListener {
         timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
         timeLabel.setBounds(50, 100, 300, 100);
         timeLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
+        timeLabel.setForeground(new Color(105,105,105));
         timeLabel.setBorder(BorderFactory.createBevelBorder(1));
         timeLabel.setOpaque(true);
         timeLabel.setHorizontalAlignment(JTextField.CENTER);
+        timeLabel.setBackground(new Color(230,230,250));
 
         startButton.setBounds(50, 200, 100, 50);
-        startButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
+        startButton.setFont(new Font("Consolas", Font.PLAIN, 15));
+        startButton.setBackground(new Color(176,196,222));
         startButton.setFocusable(false);
         startButton.addActionListener(this);
 
         resetButton.setBounds(150, 200, 100, 50);
-        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
+        resetButton.setFont(new Font("Consolas", Font.PLAIN, 15));
+        resetButton.setBackground(new Color(176,196,222));
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
         doneButton.setBounds(250, 200, 100, 50);
-        doneButton.setFont(new Font("Ink Free", Font.PLAIN, 15));
+        doneButton.setFont(new Font("Consolas", Font.PLAIN, 15));
+        doneButton.setBackground(new Color(176,196,222));
         doneButton.setFocusable(false);
-        doneButton.addActionListener(this);
+        doneButton.addActionListener(this); 
 
         frame.add(startButton);  
         frame.add(resetButton);
         frame.add(doneButton);
         frame.add(timeLabel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().setBackground(new Color(230,230,250));
         frame.setSize(420, 420);
         frame.setLayout(null);
         frame.setVisible(true);
