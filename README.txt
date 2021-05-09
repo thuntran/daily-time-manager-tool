@@ -42,8 +42,9 @@
     
     The Menu is explained in detail below:
     
-    1. View entire file 
-        - This option allow the users to view the file in the raw format, showing all the attributes of the Todo object.
+    1. View all the tasks 
+        - This option allow the users to view all of the Todo elements the user have created. The program will read the file and store the obejcts in the list. 
+          The elements will be enumerated with the attributes of the Todo object shown.
     2. View uncompleted task 
         - This option allow the users to view the elements in the ArrayList *uncompleted*. The elements will be enumerated with the numbers.
     3. Add new task 
