@@ -1,2 +1,5 @@
 do itl homework,0,0,2,true
+do chm homework,0,30,2,true
+do mth homework,0,0,2,true
 do sds homework,1,30,2,false
+do yoga,0,0,0,false
