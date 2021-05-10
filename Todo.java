@@ -1,4 +1,4 @@
-class Todo extends TT_SH_Project{
+class Todo extends TT_SH_Project {
     private String task;
     private int hours;
     private int minutes;
@@ -53,7 +53,7 @@ class Todo extends TT_SH_Project{
         return complete;
     }
 
-    public String toString() {
+    public String toString() { 
         String seconds_string = String.format("%02d", seconds);
         String minutes_string = String.format("%02d", minutes);
         String hours_string = String.format("%02d", hours);
