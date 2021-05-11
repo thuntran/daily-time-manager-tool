@@ -131,3 +131,5 @@ class Stopwatch extends TT_SH_DailyTimeManager implements ActionListener {
         timeLabel.setText(hours_string + ":" + minutes_string + ":" + seconds_string);
     }
 }
+
+// Reference: Java Stopwatch - Bro Code (https://www.youtube.com/watch?v=0cATENiMsBE)
