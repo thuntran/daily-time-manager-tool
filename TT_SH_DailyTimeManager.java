@@ -3,7 +3,7 @@ import java.io.*; // for files
 import java.time.LocalDateTime; // to get the date
 import java.time.format.DateTimeFormatter; // to format the date
    
-class TT_SH_Project {
+class TT_SH_DailyTimeManager {
     private static ArrayList<Todo> completed = new ArrayList<>(); // arraylist that stores completed tasks
     private static ArrayList<Todo> uncompleted = new ArrayList<>(); // arraylist that stores uncompleted tasks
     static Scanner scan = new Scanner(System.in); // for reading inputs
