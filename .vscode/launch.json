@@ -9,6 +9,13 @@
             "name": "Launch TT_SH_DailyTimeManager",
             "request": "launch",
             "mainClass": "TT_SH_DailyTimeManager",
+            "projectName": "csc212-final-project_9e7b28"
+        },
+        {
+            "type": "java",
+            "name": "Launch TT_SH_DailyTimeManager",
+            "request": "launch",
+            "mainClass": "TT_SH_DailyTimeManager",
             "projectName": "csc212-final-project_32972e24"
         },
         {
