@@ -34,13 +34,12 @@ class TT_SH_Project {
         }
         fin.close(); // close the file
         System.out.print("Today's date is: "); getDate(); // print current date
-        final String ANSI_GREEN = "\u001B[32m"; // set text color to green
         final String ANSI_CYAN = "\u001b[36;1m"; // set text color to cyan
         final String ANSI_RESET = "\u001B[0m"; // set text color back to default (white)
-        System.out.println(ANSI_GREEN + "\nDAILY TIME MANAGER\nThis is a tool for you to manage your time effectively by recording your daily tasks." + ANSI_RESET); 
+        System.out.println(ANSI_CYAN + "\nDAILY TIME MANAGER" + ANSI_RESET +"\nThis is a tool for you to manage your time effectively by recording your daily tasks."); 
         char op; // menu option
         do {
-            System.out.print(ANSI_CYAN + "\nMENU" + ANSI_RESET + "\n1. View all your tasks\n2. View uncompleted tasks\n3. Add a new task\n4. Delete a task\n5. Time a task\n6. View completed tasks\n7. View total time taken on all the tasks\n0. Quit" + "\nChoose an option (0 - 7): ");
+            System.out.print("\nMENU" + "\n1. View all your tasks\n2. View uncompleted tasks\n3. Add a new task\n4. Delete a task\n5. Time a task\n6. View completed tasks\n7. View total time taken on all the tasks\n0. Quit" + "\nChoose an option (0 - 7): ");
             op = scan.next().charAt(0); // read user input for option
             System.out.println();
             switch (op) {
