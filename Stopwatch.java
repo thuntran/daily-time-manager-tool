@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
-class Stopwatch extends TT_SH_Project implements ActionListener {
+class Stopwatch extends TT_SH_DailyTimeManager implements ActionListener {
     
     // fields involved in the stopwatch
     JFrame frame = new JFrame(); 
