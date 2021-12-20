@@ -1,4 +1,4 @@
-### Title: Daily Time Manager
+### Title: Daily Time Manager Tool
 
 
 ### Authors: Thu Tran, Sophie (Haeun) Song
