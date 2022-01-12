@@ -9,16 +9,21 @@ Different groups of audiences, ranging from students to workers, can organize th
 The users can create daily to-do list by entering the tasks, and time them using the stopwatch incorporated in this program.
 
 In particular, our program allows the users to achieve the following:
+
     1/ Add and delete a task in their to-do list
+    
     2/ View their to-do list and choose a task to time. 
        When the users finish timing the task, they can mark it as completed. 
        The task will then be removed from the to-do list and add on to the completed task list.
+       
     3/ View completed tasks in the list with the time taken to finish them.
+    
     4/ Check the total time spent for the completed tasks. 
        This can inform the users how much time they spent on the to-dos in a day.
 
 
 In this program, we made use of object-oriented programming to create different classes that serve our purposes: 
+
     - A Todo class. It allows the users to create instances which represent the tasks and their states.
       Attributes include the following: 
       *task*: String object that stores the content of the task that users create. 
