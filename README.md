@@ -77,9 +77,13 @@ The Menu is explained in detail below:
 <*task*,*hours*,*minutes*,*seconds*,*complete*> (This line is NOT in the file)
 
 cook dinner,0,0,0,false
+
 do mth homework,0,0,0,false
+
 do yoga,0,0,0,false
+
 play the piano,0,0,0,false
+
 water the plants,0,0,0,false
 
 
