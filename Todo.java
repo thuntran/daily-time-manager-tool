@@ -1,4 +1,4 @@
-class Todo extends TT_SH_DailyTimeManager {
+class Todo extends DailyTimeManager {
     private String task;
     private int hours;
     private int minutes;
