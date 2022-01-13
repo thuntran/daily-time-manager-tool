@@ -4,9 +4,11 @@ import java.time.LocalDateTime; // to get the date
 import java.time.format.DateTimeFormatter; // to format the date
    
 class DailyTimeManager {
+	
     private static ArrayList<Todo> completed = new ArrayList<>(); // arraylist that stores completed tasks
     private static ArrayList<Todo> uncompleted = new ArrayList<>(); // arraylist that stores uncompleted tasks
     static Scanner scan = new Scanner(System.in); // for reading inputs
+	
     public static void main(String[] args) {
         Scanner fin = null;
         try { // open fin 
@@ -14,6 +16,7 @@ class DailyTimeManager {
         } catch (IOException ex) { // IOException: input-output exception
             System.out.print(ex);
         }
+	    
         while (fin.hasNext()) { // while next line still exists (read till end of file)
             String task = fin.nextLine(); // read line by line
             String [] taskList = task.split(","); // store all the fields of the task into an array
@@ -33,11 +36,13 @@ class DailyTimeManager {
             }
         }
         fin.close(); // close the file
+	    
         System.out.print("Today's date is: "); getDate(); // print current date
         final String ANSI_CYAN = "\u001b[36;1m"; // set text color to cyan
         final String ANSI_RESET = "\u001B[0m"; // set text color back to default (white)
         System.out.println(ANSI_CYAN + "\nDAILY TIME MANAGER" + ANSI_RESET +"\nThis is a tool for you to manage your time effectively by recording your daily tasks."); 
-        char op; // menu option
+        
+	char op; // menu option
         do {
             System.out.print("\nMENU" + "\n1. View all your tasks\n2. View uncompleted tasks\n3. Add a new task\n4. Delete a task\n5. Time a task\n6. View completed tasks\n7. View total time taken on all the tasks\n0. Quit" + "\nChoose an option (0 - 7): ");
             op = scan.next().charAt(0); // read user input for option
